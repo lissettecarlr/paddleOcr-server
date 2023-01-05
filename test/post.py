@@ -18,14 +18,18 @@ def post() :
     proxies = {"http": None, "https": None}
     try :
         res = requests.post(URL, data=json.dumps(data), proxies=proxies)
+        print("res={}".format(res))
         res.encoding = "utf-8"
         result = json.loads(res.text)
+        print("result={}".format(result))
         content = ""
         for val in result["Data"]:
+            print("val={}".format(val))
             content += val["Words"] + " "
         print(content)
     except Exception :
         print(result["Message"])
+
 
 
 def main() :
