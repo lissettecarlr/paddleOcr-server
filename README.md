@@ -7,6 +7,10 @@
 conda create -n paddle python=3.10 
 conda install paddlepaddle==2.4.1 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/
 pip install --upgrade paddlehub -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+pip install scikit-image
+pip install imgaug
+pip install lmdb
 ```
 关于paddleOcr可以参考之前的[博文](https://blog.kala.love/posts/9eb77f73/)
 
@@ -20,6 +24,13 @@ python .\post.py
 ```
 会对其发送识别请求来测试服务有没有啥问题
 
+如果出现numpy的相关报错如：
+```
+AttributeError: module 'numpy' has no attribute 'int'
+```
+是因为numpy的版本问题，卸载后安装
+pip uninstall numpy
+pip install "numpy==1.23.0"
 
 ## 模型
 [模型地址](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/doc/doc_ch/models_list.md)

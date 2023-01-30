@@ -466,6 +466,7 @@ class PaddleOCR(predict_system.TextSystem):
             params.det_model_dir,
             os.path.join(BASE_DIR, 'whl', 'det', det_lang),
             det_model_config['url'])
+            
         rec_model_config = get_model_config('OCR', params.ocr_version, 'rec',
                                             lang)
         params.rec_model_dir, rec_url = confirm_model_dir_url(

@@ -5,9 +5,12 @@ import os
 import cv2
 from traceback import print_exc
 
-URL = "http://127.0.0.1:6666/ocr/api"
-IMAGE_NAME = "test4.png"
-LANGUAGE = "JAP"
+URL = "http://127.0.0.1:6666/ocr/server"
+#URL = "http://47.98.213.36:6666/ocr/api"
+
+IMAGE_NAME = "9.jpg"
+#LANGUAGE = "JAP"
+LANGUAGE = "write"
 
 
 def post() :
@@ -45,6 +48,5 @@ def main() :
 
 
 if __name__ == "__main__" :
-
 	main()
 	

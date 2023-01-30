@@ -1,3 +1,6 @@
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"]  =  "TRUE"
+
 import paddleocr.paddleocr
 from paddleocr.paddleocr import PaddleOCR
 from flask import Flask, request, jsonify
@@ -101,12 +104,12 @@ def ocrProcess(imgPath, language):
             "Score": float(line[1][1])
         }
         resMapList.append(resMap)
-    print()
+    #print()
 
     return resMapList
 
 
-
+import sys
 # 接收请求
 @app.route("/ocr/api", methods=["POST"])
 def getPost():
@@ -118,6 +121,8 @@ def getPost():
         if post_data["Language"] not in languageList:
             return jsonFail("Language {} doesn't exist".format(post_data["Language"]))
 
+        print('imgPath:{}'.format(post_data["ImagePath"]) , file=sys.stderr)
+        
         res = ocrProcess(post_data["ImagePath"], post_data["Language"])
         return jsonSuccess(res)
 
@@ -145,6 +150,9 @@ def ocr_server():
         img_decode = images_decode[0]
        
         #print(type(img_decode))
+        if(not os.path.exists("./temp")):
+            os.makedirs("./temp")
+
         t = strftime("%Y_%m_%d_%H_%M_%S", localtime())
         imgPath = './temp/' + t + '_' + str(random.randint(1000,9999)) +'.jpg'
         cv2.imwrite(imgPath, img_decode)
@@ -156,8 +164,6 @@ def ocr_server():
     except Exception as err:
         print_exc()
         return jsonFail(err)
-
-
 
 if __name__ == "__main__" :
     app.run(debug=False, host="0.0.0.0", port=6666, threaded=False)
