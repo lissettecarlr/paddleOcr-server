@@ -71,17 +71,18 @@ def ocrResultSort(ocr_result):
 
 # ocr解析
 def ocrProcess(imgPath, language):
-    if language == "JAP":
+    print("language = {}".format(language))
+    if language in ["JAP","japan"]:
         result = japOcr.ocr(imgPath, cls=False)
-    elif language == "ENG":
+    elif language in ["ENG","en"]:
         result = engOcr.ocr(imgPath, cls=False)
-    elif language == "KOR":
+    elif language in ["KOR","korean"]:
         result = korOcr.ocr(imgPath, cls=False)
-    elif language == "CH":
+    elif language in ["CH","ch"]:
         result = chOcr.ocr(imgPath, cls=False)
     else:#其他未知的都按照日语识别
         result = japOcr.ocr(imgPath, cls=False)
-
+        
     try:
         result = ocrResultSort(result)
     except Exception:
@@ -158,6 +159,7 @@ def ocr_server():
         cv2.imwrite(imgPath, img_decode)
         #进行OCR识别
         res = ocrProcess(imgPath,language)
+        
         os.unlink(imgPath)
         return jsonSuccess(res)
 
